@@ -11,10 +11,6 @@
  *
  */
 
-var MAXRED = 0
-var MAXGREEN = 0
-var MAXBLUE = 0
-
 fun String.splitN(delimiter: String, limit: Int = 0): List<String> =
     split(delimiter, limit = limit)
 
@@ -40,8 +36,12 @@ fun String.leftInt(): Int = leftWord().toIntOrZero()
 fun String.rightInt(): Int = rightWord().toIntOrZero()
 
 fun main() {
-    var sum: Int = 0
-    OUT@ while (true) {
+    var maxRed = 0
+    var maxGreen = 0
+    var maxBlue = 0
+    var sum = 0
+
+    while (true) {
         // Read a line or break out
         val line = readLine() ?: break
 
@@ -61,17 +61,23 @@ fun main() {
 
                 // DAY 2b is about finding the max of each color for each game, because these show what has to have been in the big bag, at the minimum
 
-                if (color == "red" && count > MAXRED) {
-                    MAXRED = count
+                if (color == "red" && count > maxRed) {
+                    maxRed = count
                 }
-                        || (color == "green" && count > MAXGREEN) || (color == "blue" && count > MAXBLUE)) {
-                    println("Game $gameName is not possible")
-                    continue@OUT
+                if (color == "green" && count > maxGreen) {
+                    maxGreen = count
+                }
+                if (color == "blue" && count > maxBlue) {
+                    maxBlue = count
                 }
             }
         }
-        println("Game $gameName is possible, adding $gameID")
-        sum += gameID
+        val product = maxRed * maxGreen * maxBlue
+        println("Game $gameName ($maxRed, $maxGreen, $maxBlue) product ${product}")
+        sum += product
+        maxRed = 0
+        maxGreen = 0
+        maxBlue = 0
     }
-    println("Sum of possible game IDs: $sum")
+    println("Sum of all products: $sum")
 }
