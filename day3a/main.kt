@@ -20,6 +20,13 @@ fun String.leftInt(): Int = leftWord().toIntOrZero()
 
 fun String.rightInt(): Int = rightWord().toIntOrZero()
 
+// 42.each { println("$it") }
+fun Int.each(action: (Int) -> Unit) {
+    for (i in 1..this) {
+        action(i)
+    }
+}
+
 fun main() {
     var x = 0
     var y = 0
@@ -33,7 +40,7 @@ fun main() {
         for (r in line) {
             when (r) {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' -> println("digit $r at $x,$y")
-                '.' ->
+                '.' -> {}
                 else -> println("symbol $r at $x,$y")
             }
             x++
